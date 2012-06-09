@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script type="text/javascript" src="js/common/class_builder.js"></script>
+    <script type="text/javascript" src="js/common/timer.js"></script>
+    <script type="text/javascript">
+      
+      function Mover() {
+        this.X = 0;
+        this.dX = 0;
+      }
+      
+      Mover.prototype.move = function() {
+        this.dX = 1;
+      }
+      
+      Mover.prototype.init = function() {
+        console.log('Mover init');
+      }
+      
+      function Server() {
+        
+      }
+      
+      Server.prototype.init = function() {
+        console.log('Server init');
+      }
+      
+      Server.prototype.serve = function() {
+        this.X += this.dX;
+        console.log("Serve called");
+      }
+      
+      function Server1() {
+        
+      }
+      
+      Server1.prototype.serve = function() {
+        this.X += this.dX;
+        console.log("Serve called");
+      }
+      
+      Server1.prototype.init = function() {
+        console.log('Server1 init');
+      }
+      
+      var cb = new ClassBuilder('Man', function(){console.log('Constructor called with params:'); console.log(arguments);});
+      cb.addMixin('Mover');
+      cb.addMixin('Server');
+      cb.addMixin('Server1');
+      
+      var man = new Man(1, 2, 3);
+      man.move();
+      
+      var timer = new Timer();
+      timer.addService(man);
+      timer.start();
+      
+      setTimeout(function(){timer.pause()}, 1000);
+      
+    </script>
+  </head>
+  <body>
+    <input type="button" value="start" onclick="Game.getInstance().start();" /> | 
+    <input type="button" value="pause" onclick="Game.getInstance().pause();" />
+    <div id="canvas" style="width: 100%; height: 500px; border: 2px solid black;"></div>
+  </body>
+</html>

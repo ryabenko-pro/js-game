@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style type="text/css">
+      BODY {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;    
+      }  
+    </style>
+    
+    <script type="text/javascript">
+      var context = null;
+       
+      window.onload = function() {
+        context = new WAContext();
+        var game = new Game(document.getElementById('canvas'));
+        
+        var hole = new Hole(500, 50);
+        
+        service = new Fighter(150, 100);
+        game.addService(service);
+        keyboard = new KeyboarObserver(service);
+        game.addService(keyboard);
+        
+        game.start();
+      }
+/*
+      window.onload = function() {
+        var game = new Game(document.getElementById('canvas'));
+        game.start();
+        
+        var mob = new Mob();
+        var hole = new Hole(500, 50);
+        
+        // Game rules:
+        game.getDispatcher().addEventListener('mob.reached-point', function(){ alert('You lose!'); game.pause() });
+      }
+*/
+    </script>
+  </head>
+  <body>
+    <input type="button" value="start" onclick="Game.getInstance().start();" /> | 
+    <input type="button" value="pause" onclick="Game.getInstance().pause();" />
+    <div id="canvas" style="width: 1000px; height: 500px; border: 2px solid black;"></div>
+    <script type="text/javascript" src="js/common/geometry_observer.js"></script>
+    <script type="text/javascript" src="js/common/dispatcher.js"></script>
+    <script type="text/javascript" src="js/common/class_builder.js"></script>
+    <script type="text/javascript" src="js/base/movable.js"></script>
+    <script type="text/javascript" src="js/base/displayable.js"></script>
+    <script type="text/javascript" src="js/base/hole.js"></script>
+    <script type="text/javascript" src="js/base/mob.js"></script>
+    <script type="text/javascript" src="js/base/wall.js"></script>
+    <script type="text/javascript" src="js/webaudio/wa_context.js"></script>
+    <script type="text/javascript" src="js/webaudio/wa_note.js"></script>
+    <script type="text/javascript" src="js/common/timer.js"></script>
+    <script type="text/javascript" src="js/game.js"></script>
+    <script type="text/javascript" src="js/fighter.js"></script>
+  </body>
+</html>
